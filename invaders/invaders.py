@@ -1,9 +1,9 @@
 import random
 import time
 import displayio
-import controls
 import adafruit_imageload
 import terminalio
+from . import controls
 
 
 def collide(ax0, ay0, ax1, ay1, bx0, by0, bx1=None, by1=None):
@@ -203,11 +203,14 @@ class Aliens(Sprite):
 
 class Game:
     def __init__(self):
-        self.tiles, self.palette = adafruit_imageload.load("tiles.gif",
+        #path = os.path.abspath(os.path.dirname(__file__))
+        path = __file__.rsplit('/', 1)[0] + '/' if '/' in __file__ else ''
+        self.tiles, self.palette = adafruit_imageload.load(
+            path + "tiles.gif",
             bitmap=displayio.Bitmap, palette=displayio.Palette)
         self.palette.make_transparent(15)
-        self.pew_sound = open("pew.wav", 'rb')
-        self.boom_sound = open("boom.wav", 'rb')
+        self.pew_sound = open(path + "pew.wav", 'rb')
+        self.boom_sound = open(path + "boom.wav", 'rb')
 
         self.root = displayio.Group(max_size=3)
         self.sprites = displayio.Group(max_size=8)
