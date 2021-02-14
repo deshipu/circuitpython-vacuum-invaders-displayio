@@ -84,6 +84,7 @@ class Saucer(Sprite):
         self.move(self.x + self.dx, self.y)
         if abs(self.x - self.game.ship.x) < 4 and self.game.bomb.grid.hidden:
             self.game.bomb.move(self.x, self.y)
+            self.game.bomb.grid.hidden  = False
 
 
 class Bomb(Sprite):
@@ -244,7 +245,7 @@ class Game:
         self.last_tick = time.monotonic()
 
         controls.display.show(self.root)
-        #controls.audio.mute(False)
+        controls.audio.mute(False)
 
 
     def pause(self, info):
