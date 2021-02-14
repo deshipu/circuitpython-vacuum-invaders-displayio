@@ -48,22 +48,22 @@ class Ship(Sprite):
 
         keys = controls.buttons.get_pressed()
         self.set_frame(3, 0 if self.tick else 4)
-        if keys & controls.B_RIGHT:
+        if keys & controls.buttons.RIGHT:
             self.dx = min(self.dx + 1, 4)
             self.set_frame(4, 0)
-        elif keys & controls.B_LEFT:
+        elif keys & controls.buttons.LEFT:
             self.dx = max(self.dx - 1, -4)
             self.set_frame(4, 4)
         else:
             self.dx = self.dx // 2
-        if keys & controls.B_X:
+        if keys & controls.buttons.X:
             if self.game.missiles[0].grid.hidden:
                 self.game.missiles[0].shoot(self.x, self.y)
             elif self.game.missiles[1].grid.hidden:
                 self.game.missiles[1].shoot(self.x, self.y)
             elif self.game.missiles[2].grid.hidden:
                 self.game.missiles[2].shoot(self.x, self.y)
-        if keys & controls.B_O:
+        if keys & controls.buttons.O:
             self.game.pause(" Pause...")
         self.x = max(min(self.x + self.dx, 112), 0)
         self.move(self.x, self.y)
@@ -252,15 +252,15 @@ class Game:
 
 
     def pause(self, info):
-        while controls.buttons.get_pressed() & controls.B_O:
+        while controls.buttons.get_pressed() & controls.buttons.O:
             pass
         self.text.write('\n')
         self.text.write(info)
-        while not controls.buttons.get_pressed() & controls.B_O:
+        while not controls.buttons.get_pressed() & controls.buttons.O:
             pass
         self.text.write('\n')
         self.text.write(' ' * 9)
-        while controls.buttons.get_pressed() & controls.B_O:
+        while controls.buttons.get_pressed() & controls.buttons.O:
             pass
 
     def tick(self, fps=12):
